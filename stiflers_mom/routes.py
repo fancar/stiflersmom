@@ -19,7 +19,7 @@ def init_routes(app: web.Application) -> None:
     #CollectorStats
 
     # GET
-    add_route('GET', '/show_macs', macs_view)
+    # add_route('GET', '/show_macs', macs_view)
     add_route('GET', '/post_stats', post_stats_view)
     add_route('GET', '/collector_stats', collector_stats_view)
     add_route('GET', '/snif_stats', snif_stats_view)

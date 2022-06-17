@@ -15,10 +15,21 @@ import jinja2
 from stiflers_mom.routes import init_routes
 from stiflers_mom.utils.common import init_config
 
+from dotenv import load_dotenv
+
+
+
 #from stiflers_mom.cron import hourly
 
 path = Path(__file__).parent
 
+def load_env():
+    load_dotenv()
+
+    if os.getenv("TOKEN") is None:
+        logging.log(logging.FATAL,
+            "TOKEN is not specified. Please pass TOKEN as env variable")
+        exit(1)
 
 def init_jinja2(app: web.Application) -> None:
     '''
@@ -66,14 +77,14 @@ async def database(app: web.Application) -> None:
 
 def init_app(config: Optional[List[str]] = None) -> web.Application:
     #t = app['config']['app']['token']
+    load_env()
 
     async def user_loader(token: str):
         """Checks that token is valid
         """
         user = None
 
-        #if token == "DDK33KLNcNEOFKK2MV":
-        if token == os.environ['TOKEN']:
+        if token == os.getenv("TOKEN"):
             user = {'uuid': 'user'}            
         return user    
 
