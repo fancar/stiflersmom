@@ -1,0 +1,21 @@
+# app
+app:
+  host: 0.0.0.0
+  port: 8080
+
+# postgres
+
+postgres:
+  user: postgres
+  password: postgres
+  database: postgres
+  port: 5432
+  host: postgres
+
+
+# postgres:
+#   user: mom 
+#   password: stifler
+#   database: stiflers_mom
+#   port: 5432
+#   host: localhost

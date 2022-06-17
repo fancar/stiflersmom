@@ -1,0 +1,34 @@
+version: '3.2'
+
+services:
+  stiflers_mom_app:
+    build:
+      context: .
+      args:
+        requirements: requirements/production.txt
+
+    container_name: stiflers_mom_prod
+
+    environment:
+      # use in code
+      - SETTINGS_FILE=api.prod.yml
+    depends_on:
+      - postgres      
+    ports:
+      - 8080:8080
+      #- 8079:8079      
+    command: python3 -m stiflers_mom
+    volumes:
+      - ./stiflers_mom/csv_files/:/app/stiflers_mom/csv_files/:consistent
+
+  postgres:
+      image: postgres:10
+      container_name: stiflers_mom_postgres_prod
+      environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+          - POSTGRES_DB=postgres
+      volumes:
+          - ./db_prod:/var/lib/postgresql/data          
+      ports:
+          - 5423:5432
